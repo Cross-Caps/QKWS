@@ -25,33 +25,25 @@ Towards on-Device Keyword Spotting using Low-Footprint Quaternion Neural Models
 ### Data
 Model training and testing requires the [Google Speech Commands V2](http://www.) datasets.
 
-In addition, you need to download the [MUSAN](https://www.openslr.org/17/) noise corpus for data augmentation.
 
 ## Training Examples
 
 - Quaternion BCResNet
-```
-python ./trainSpeakerNet.py --config ./configs/RawNet3_AAM.yaml
+```I
+python3 main.py train --scale 6 --batch-size 512 --device cuda --epoch 200 --log-interval 100 --checkpoint-file Weights/QBCResnet6QORGASM.torch --optimizer adam --dropout 0.2 --subspectral-norm >logs/QBCResnet6QORGASM.out
+
 ```
 
-- Quaternion MatchboxNet
-```
-python ./trainSpeakerNet.py --config ./configs/DSR_RawNet3_AAM.yaml
-```
 
 ## Pre-Trained Models
-Pretrained models are available in the `/exp/` directory
+Download the Pretrained models weights in the `/Weights/` directory
 
 The following script should return `98\%` Acc the on Test set.
 ```
-python ./trainNet.py --eval --config ./configs/QMatchboxNet.yaml --initial_model models/model.pt
+python3 main.py test --model-file QBCResnet6QORGASM.torch --scale 6 --batch-size 512 --device cuda --dropout 0.2 --subspectral-norm 
 ```
-### Accelerating training (Feature Upcoming)
-
-- Use `--mixedprec` flag to enable mixed precision training. This is recommended for latest Nvidia RTX cards.
-
-- Use `--distributed` flag to enable distributed training over multiple GPUs.
 
 ## Contact
-Aryan Chaudhary: email
-
+Aryan Chaudhary: aryanc55@gmail.com 
+[Old Github Repo]<https://github.com/DataSenseiAryan/GoogleSpeechCommandLowFootprint.git>
+This old repo contains codes for all the wierd experiments I did. 
